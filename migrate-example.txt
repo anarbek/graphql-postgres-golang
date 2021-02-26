@@ -1,0 +1,1 @@
+migrate -database postgres://postgres:example@localhost:5432/linksdb?sslmode=disable -path internal/pkg/db/migrations/postgres up
