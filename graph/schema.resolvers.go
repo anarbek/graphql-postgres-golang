@@ -42,6 +42,16 @@ func (r *queryResolver) Links(ctx context.Context) ([]*model.Link, error) {
 	return resultLinks, nil
 }
 
+func (r *queryResolver) LinksPaged(ctx context.Context, firstPage int, lastPage int) ([]*model.Link, error) {
+	var resultLinks []*model.Link
+	var dbLinks []links.Link
+	dbLinks = links.GetAllPaged(firstPage, lastPage)
+	for _, link := range dbLinks {
+		resultLinks = append(resultLinks, &model.Link{ID: link.ID, Title: link.Title, Address: link.Address})
+	}
+	return resultLinks, nil
+}
+
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 

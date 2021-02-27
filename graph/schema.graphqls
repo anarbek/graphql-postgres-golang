@@ -16,6 +16,7 @@ type User {
 
 type Query {
   links: [Link!]!
+  linksPaged(firstPage: Int!, lastPage: Int!): [Link]
 }
 
 input NewLink {

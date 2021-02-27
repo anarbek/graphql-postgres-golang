@@ -60,3 +60,31 @@ func GetAll() []Link {
 	}
 	return links
 }
+
+func GetAllPaged(firstPage int, lastPage int) []Link {
+	log.Print("First Page: ", firstPage)
+	log.Print("Last Page: ", lastPage)
+	stmt, err := database.Db.Prepare(`select "ID", "Title", "Address" from "Links"`)
+	if err != nil {
+		log.Print(err)
+	}
+	defer stmt.Close()
+	rows, err := stmt.Query()
+	if err != nil {
+		log.Print(err)
+	}
+	defer rows.Close()
+	var links []Link
+	for rows.Next() {
+		var link Link
+		err := rows.Scan(&link.ID, &link.Title, &link.Address)
+		if err != nil {
+			log.Print(err)
+		}
+		links = append(links, link)
+	}
+	if err = rows.Err(); err != nil {
+		log.Print(err)
+	}
+	return links
+}
