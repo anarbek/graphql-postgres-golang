@@ -20,6 +20,10 @@ func (r *mutationResolver) CreateLink(ctx context.Context, input model.NewLink) 
 	return &model.Link{ID: strconv.FormatInt(linkID, 10), Title: link.Title, Address: link.Address}, nil
 }
 
+func (r *mutationResolver) CreateLinksBatch(ctx context.Context, input []*string) (*string, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (string, error) {
 	panic(fmt.Errorf("not implemented"))
 }
